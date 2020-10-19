@@ -102,6 +102,8 @@ print(b1)
 {}
 ```
 ## copy()方法
+### 浅拷贝：原字典会变；深拷贝：两个独立
+### 一级目录：深拷贝，二级目录：浅拷贝
 ```python
 #copy()方法，浅复制
 score = {'Tom': 77, 'Alice': ["English",100]}
@@ -126,6 +128,7 @@ print(score)
 print(copy_score)
 ```
 结果
+```python
 {'Tom': 77, 'Alice': ['English', 100]}
 {'Tom': 77, 'Alice': ['English', 100]}
 {'Tom': 77, 'Alice': ['English', 100]}
@@ -136,5 +139,5 @@ print(copy_score)
 {'Tom': 88, 'Alice': ['English'], 'Bob': 60}
 {'Tom': 77, 'Alice': ['English']}
 {'Alice': ['English'], 'Bob': 60}
-
+```
 
