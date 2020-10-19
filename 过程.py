@@ -14,8 +14,8 @@ print(score)
 print(copy_score)
 #删除
 copy_score["Alice"].remove(100)
-print(copy_score)
 print(score)
+print(copy_score)
 del copy_score["Tom"]
-print(copy_score)
 print(score)
+print(copy_score)
