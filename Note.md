@@ -1,9 +1,9 @@
-#字典
-##由｛｝包围
-##由键-值组成，键-值之间使用“：”连接
-##键-值对之间使用“，”隔开
-##注意：字典中的键是唯一的，值可以不唯一
-##字典里查看值，通过键；列表里查看值，通过索引
+# 字典
+## 由｛｝包围
+## 由键-值组成，键-值之间使用“：”连接
+## 键-值对之间使用“，”隔开
+## 注意：字典中的键是唯一的，值可以不唯一
+## 字典里查看值，通过键；列表里查看值，通过索引
 
 ```python
 #字典通过键来查找值，不可通过索引
@@ -15,10 +15,10 @@ print(score["Tom"])
 90
 ```
 
-dict() 函数
-用于创建一个字典
-可以把元祖或列表转化为字典
-注意：需要成对才可转换
+## dict() 函数
+## 用于创建一个字典
+## 可以把元祖或列表转化为字典
+## 注意：需要成对才可转换
 
 ```python
 #元祖转换字典
@@ -43,7 +43,7 @@ print(score)
 {'Bob': 100, 'Tom': 77, 'Alice': 88}
 ```
 
-字典的基本操作
+# 字典的基本操作
 ```python
 score = {'Bob': 66, 'Tom': 77, 'Alice': 88}
 #len():输出字典中键值对数量
@@ -70,7 +70,8 @@ True
 ```
 
 
-字典的方法
+# 字典的方法
+## clear()方法
 ```python
 #clear方法
 a = { }
@@ -100,7 +101,7 @@ print(b1)
 {}
 {}
 ```
-copy()方法
+## copy()方法
 ```python
 #copy()方法，浅复制
 score = {'Tom': 77, 'Alice': ["English",100]}
@@ -118,11 +119,11 @@ print(score)
 print(copy_score)
 #删除
 copy_score["Alice"].remove(100)
-print(copy_score)
 print(score)
+print(copy_score)
 del copy_score["Tom"]
-print(copy_score)
 print(score)
+print(copy_score)
 ```
 结果
 {'Tom': 77, 'Alice': ['English', 100]}
@@ -133,7 +134,7 @@ print(score)
 {'Tom': 88, 'Alice': ['English', 100], 'Bob': 60}
 {'Tom': 77, 'Alice': ['English']}
 {'Tom': 88, 'Alice': ['English'], 'Bob': 60}
-{'Alice': ['English'], 'Bob': 60}
 {'Tom': 77, 'Alice': ['English']}
+{'Alice': ['English'], 'Bob': 60}
 
 
