@@ -1,21 +1,7 @@
-#copy()方法，浅复制
-score = {'Tom': 77, 'Alice': ["English",100]}
-print(score)
-#copy字典
-copy_score = score.copy()
-print(copy_score)
-#修改copy后的字典值，原字典不受影响
-copy_score["Tom"] = 88
-print(score)
-print(copy_score)
-#copy后的新字典增加或删除时，对原字典有影响
-copy_score["Bob"] = 60
-print(score)
-print(copy_score)
-#删除
-copy_score["Alice"].remove(100)
-print(score)
-print(copy_score)
-del copy_score["Tom"]
-print(score)
-print(copy_score)
+scores = {"Chinese":80,"English":100}
+Math_score = {"Math":99}
+scores.update(Math_score)
+print(scores)
+History_score = {"History":88}
+scores.update(History_score)
+print(scores)

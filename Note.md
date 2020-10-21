@@ -109,7 +109,7 @@ print(b1)
 score = {'Tom': 77, 'Alice': ["English",100]}
 print(score)
 #copy字典
-copy_score = score.copy()
+copy_score = score.copy()   # 浅拷贝：深拷贝父对象（一级目录），子对象（二级目录）不拷贝，还是引用
 print(copy_score)
 #修改copy后的字典值，原字典不受影响
 copy_score["Tom"] = 88
@@ -140,4 +140,124 @@ print(copy_score)
 {'Tom': 77, 'Alice': ['English']}
 {'Alice': ['English'], 'Bob': 60}
 ```
+
+#### deepcopy函数
+深度复制，复制后的字典做任何操作，原字典都不会受到影响
+注意：使用前需要import调用
+```python
+#字典中的deepcopy函数
+from copy import deepcopy
+d = {}
+d["names"] = ["Bob","Tom"]
+print(d)
+#深复制
+d1 = deepcopy(d)
+print(d1)
+#对深复制后的字典，进行任何操作，原字典都不会受到影响
+d1["age"] = 12
+print(d1)
+print(d)
+d1["names"].remove("Tom")
+print(d1)
+print(d)
+```
+结果
+```python
+{'names': ['Bob', 'Tom']}
+{'names': ['Bob', 'Tom']}
+{'names': ['Bob', 'Tom'], 'age': 12}
+{'names': ['Bob', 'Tom']}
+{'names': ['Bob'], 'age': 12}
+{'names': ['Bob', 'Tom']}
+```
+
+#### get函数
+获取字典项的方法，即使字典中不包含查询键，也不会报错
+```python
+d = {"name":"Bob"}
+print(d)
+print(d["name"])    #字典项中存在的键，可直接输出值
+#print(d["age"])     #字典项中不存在的键，会报错，使用get函数
+print(d.get("age","无此值"))    
+```
+结果
+```python
+{'name': 'Bob'}
+Bob
+无此值
+```
+
+#### key方法
+将字典的键，以列表的形式返回
+```python
+scores = {
+    "Tom":{
+        "Chinese":80,"English":100},
+    "Bob":{
+        "Chinese":85,"English":95},
+    "Alise":{
+        "Chinese":77,"English":99},
+}
+print(scores.keys())
+```
+结果
+```python
+dict_keys(['Tom', 'Bob', 'Alise'])
+```
+
+#### pop方法
+获取指定键的值，并删除该键
+```python
+scores = {"Chinese":80,"English":100}
+score = scores.pop("English")
+print(scores)
+print(score)
+```
+结果
+```python
+{'Chinese': 80}
+100
+```
+#### popitem方法
+Python 字典 popitem() 方法返回并删除字典中的最后一对键和值。
+如果字典已经为空，却调用了此方法，就报出 KeyError 异常
+```python
+scores = {"Chinese":80,"English":100,"Math":99}
+scores.popitem()
+print(scores)
+```
+结果
+```python
+{'Chinese': 80, 'English': 100}
+```
+
+####  setdefault方法
+给字典设置一个值
+```python
+d = {}
+d.setdefault("num",1)
+print(d)
+```
+结果
+```python
+{'num': 1}
+```
+
+####  update方法
+利用另一个字典更新现有字典
+```python
+scores = {"Chinese":80,"English":100}
+Math_score = {"Math":99}
+scores.update(Math_score)
+print(scores)
+History_score = {"History":88}
+scores.update(History_score)
+print(scores)
+```
+结果
+```python
+{'Chinese': 80, 'English': 100, 'Math': 99}
+{'Chinese': 80, 'English': 100, 'Math': 99, 'History': 88}
+```
+
 
