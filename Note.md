@@ -280,3 +280,83 @@ print(min(88,99,100))
 88
 ```
 
+### print函数的总结
+```py
+name = "Tom"
+age = 10
+print(name, "age is", age)
+#变量不能用+号连接，会报错
+#print(name + "age is" + age)
+```
+结果
+```py
+Tom age is 10
+```
+
+### 导入import
+```py
+import math #导入整个模块，使用该模块内的函数方式为math.*
+from math import pi,cos #导入math模块下pi、cos函数
+from math import *  #导入模块下所有函数，慎用该方式
+from math as tmath #给导入模块起一个别名
+```
+
+
+
+### printh函数的补充，赋值问题
+```py
+#同时给多个变量赋值
+a,b,c = 1,2,3
+print(a)
+print(b)
+print(c)
+#同时给多个变量赋同一个值
+x = y = z = 2
+print(x)
+print(y)
+print(z)
+#给一个变量赋多个值
+values = 1,2,3
+print(values)
+#增量赋值
+num = 5
+print(num)
+num += 1    #num = num + 1
+print(num)
+num *= 2    #num = num * 2
+print(num)
+name = "A"
+name += "B" #name = name + "B"
+print(name)
+name *= 2   #name = name * 2
+print(name)
+```
+结果
+```py
+1
+2
+3
+2
+2
+2
+(1, 2, 3)
+5
+6
+12
+AB
+ABAB
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
