@@ -280,7 +280,7 @@ print(min(88,99,100))
 88
 ```
 
-### print函数的总结
+#### print函数的总结
 ```py
 name = "Tom"
 age = 10
@@ -293,7 +293,7 @@ print(name, "age is", age)
 Tom age is 10
 ```
 
-### 导入import
+#### 导入import
 ```py
 import math #导入整个模块，使用该模块内的函数方式为math.*
 from math import pi,cos #导入math模块下pi、cos函数
@@ -303,7 +303,7 @@ from math as tmath #给导入模块起一个别名
 
 
 
-### printh函数的补充，赋值问题
+#### printh函数的补充，赋值问题
 ```py
 #同时给多个变量赋值
 a,b,c = 1,2,3
@@ -349,10 +349,186 @@ ABAB
 
 
 
+#### 比较符号
+```py
+num1 = int(input("输入第一个数："))
+num2 = int(input("输入第二个数："))
+if num1 > num2 :
+    print(num1, " > ", num2)
+if num1 < num2 :
+    print(num1, " < ", num2)
+if num1 == num2 :
+    print(num1, " = ", num2)
+if num1 != num2 :
+    print(num1, " != ", num2)
+```
+结果
+```py
+输入第一个数：1
+输入第二个数：2
+1  <  2
+1  !=  2
+```
 
 
+#### if...elif...elif...else
+```py
+num = int(input("输入一个数："))
+if num >= 10:
+    print(num, " >=10 ")
+elif num >= 5:
+    print(" 5<= ", num, " <10 ")
+elif num >= 1:
+    print(" 1<= ", num, " <5 ")
+else:
+    print(num, " <=0 ")
+```
+结果
+```py
+输入一个数：0
+0  <=0
+```
 
 
+#### 多条件测试
+```py
+#多条件测试
+age = int(input("年龄："))
+if age >= 18:
+    grade = int(input("年级："))
+    if grade >= 12:
+        print("OK")
+    else:
+        print("不行！")
+else:
+    print("年龄不满18")
+```
+结果
+```py
+年龄：18
+年级：11
+不行！
+```
+
+
+#### and or not
+##### and
+```py
+# and 所有条件都为真
+age = int(input("年龄："))
+grade = int(input("年级："))
+if age >= 18 and grade >= 12:
+    print("OK")
+else:
+    print("不行！")
+```
+结果
+```py
+年龄：18
+年级：11
+不行！
+```
+##### or
+```py
+# or 其中一个条件都为真
+if age >= 18 or grade >= 12:
+    print("OK")
+else:
+    print("不行！")
+```
+结果
+```py
+年龄：18
+年级：11
+不行！
+OK
+```
+##### not
+```py
+# not
+age = int(input("年龄："))
+if not (age < 18):
+    grade = int(input("年级："))
+    if grade >= 12:
+        print("OK")
+    else:
+        print("不行！")
+else:
+    print("年龄不满18")
+```
+结果
+```py
+年龄：18
+年级：11
+不行！
+```
+
+
+#### 
+```py
+
+```
+结果
+```py
+
+```
+
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
+#### 
+```py
+
+```
+结果
+```py
+
+```
 
 
 
