@@ -16,6 +16,12 @@ AddressSanitizer: heap-use-after-free on address
 
 链表的末尾没有设置为nullptr
 
+```c
+Line 22: Char 19: runtime error: member access within null pointer of type 'TreeNode' (solution.cpp)
+```
+
+使用了空指针，提前进行判断
+
 ## 思维逻辑错误
 
 - 超时：死循环忘记break或者是忘记修改条件变量
@@ -33,6 +39,12 @@ que.emplace(root);
 que.size();
 que.front();
 que.pop();x
+```
+
+### 栈
+
+```c
+stack<string> words
 ```
 
 ## 解题思路
