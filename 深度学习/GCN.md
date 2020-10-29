@@ -10,11 +10,33 @@
 生成
 
 
-
 ## 谱卷积 spectral based
 
-代表 GAT
+### NN4G
+
+每一层GCN的图的结构是不变的，变得是feature，每一层只能学习一阶的邻居（aggregate），因此要进行多层的叠加，最后readout，把所有的结果合并成一个hidden state
+
+实际操作就是加权平均周围节点
+
+### DCNN（diffusion）
+
+第k层，k阶邻居feature平均
+
+最后每层加权合成一个H
+
+### DCG
+
+H 直接加起来
+
+### moNET
+
+距离作为权重
+
+### GAT
+
+对邻居直接做attention，权重自己学习
 
 ## 空间域卷积 spatial based
 
 代表 GCN
+GCN的意义在于把图的结构和节点的feature作为输入，考虑的图的结构，节点之间的联系，讲谱和傅立叶是为了可解释性
