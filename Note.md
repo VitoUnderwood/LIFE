@@ -349,7 +349,7 @@ ABAB
 
 
 
-#### 比较符号
+#### 条件中的比较符号
 ```py
 num1 = int(input("输入第一个数："))
 num2 = int(input("输入第二个数："))
@@ -390,7 +390,7 @@ else:
 ```
 
 
-#### 多条件测试
+#### 多条件
 ```py
 #多条件测试
 age = int(input("年龄："))
@@ -464,6 +464,374 @@ else:
 ```
 
 
+#### assert 断言
+遇到错误会报错
+```py
+num = 20
+assert num < 11
+```
+结果
+```py
+    assert num < 11
+AssertionError
+```
+
+#### while循环
+```py
+#while 默认条件为真
+name = ""
+while not name:
+    name = input("输入你的名字：")
+print("hello %s" % name)
+```
+结果
+```py
+输入你的名字：紫星
+hello 紫星
+```
+
+```py
+# while 默认条件为真
+# while 判断条件
+# demo：计算1到10的和
+n = 10
+sum = 0
+counter = 1
+while counter <= n:
+    sum = sum + counter
+    counter += 1
+print("1到 %d 的和为 %d" %(n, sum))
+```
+结果
+```py
+1到 10 的和为 55
+```
+##### 注意不要进入无线循环
+```py
+# while 无限循环
+n = 1
+while n == 1:
+    m = int(input("输入一个数："))
+    print("数字是%s" %m)
+print("end")
+```
+```py
+# while 无限循环
+while True:
+    m = int(input("输入一个数："))
+    print("数字是%s" %m)
+print("end") 
+```
+结果
+```py
+输入一个数：1
+数字是1
+输入一个数：11
+数字是11
+输入一个数：111
+数字是111
+输入一个数：111
+数字是111
+输入一个数：1111
+数字是1111
+输入一个数：
+```
+##### while与else
+```py
+n = 0
+while n < 5:
+    print(n,"小于5")
+    n += 1
+else:
+    print(n,"不小于5")
+```
+结果
+```py
+0 小于5
+1 小于5
+2 小于5
+3 小于5
+4 小于5
+5 不小于5
+```
+#### for循环
+```py
+for i in [1,2,3]:
+    print(i)
+
+a = {"A":1, "B":2, "C":3}
+for x in a:
+    print(x, " = ", a[x])
+```
+结果
+```py
+1
+2
+3
+A  =  1
+B  =  2
+C  =  3
+```
+#### range()函数
+range(x,y,z)
+x：从x开始，默认为0，可不填
+y：计数到b，但不包含b
+z：技术间隔，默认为1，可不填
+```py
+# range函数
+for a in range(3):
+    print(a)
+print("-------------")
+for b in range(1,3):
+    print(b)
+print("-------------")
+for c in range(1,10,3):
+    print(c)
+```
+结果
+```py
+0
+1
+2
+-------------
+1
+2
+-------------
+1
+4
+7
+```
+#### 并行迭代
+```py
+# 并行迭代
+a = ["Tom", "Bob", "Bela", "Anne","Alice"]
+b = [1,2,3,4]
+for i  in range(len(b)):
+    print(a[i],"的年龄是",b[i],"岁")
+```
+结果
+```py
+Tom 的年龄是 1 岁
+Bob 的年龄是 2 岁
+Bela 的年龄是 3 岁
+Anne 的年龄是 4 岁
+```
+##### zip函数处理并行迭代
+返回为一个元祖列表，个数与最短的列表一致
+```py
+# zip函数处理并行迭代
+a = ["Tom", "Bob", "Bela", "Anne","Alice"]
+b = [1,2,3,4]
+for a,b  in zip(a,b):
+    print(a,"的年龄是",b,"岁")
+```
+结果
+```py
+Tom 的年龄是 1 岁
+Bob 的年龄是 2 岁
+Bela 的年龄是 3 岁
+Anne 的年龄是 4 岁
+```
+#### 按索引迭代
+```py
+a = ["Tom", "Bob", "Bela", "Anne","Alice"]
+index = 0
+for i in a:
+    if "ob" in i :
+        a[index] = "Alice"
+    index += 1
+print(a)
+```
+结果
+```py
+['Tom', 'Alice', 'Bela', 'Anne', 'Alice']
+```
+#### continue
+结束本次循环，进入下一个循环
+##### 案例一
+```py
+for i in range(3):
+    print("-----")
+    print("i = ", i)
+    if i == 1:
+        continue
+    print("hello")
+```
+结果
+```py
+-----
+i =  0
+hello
+-----
+i =  1
+-----
+i =  2
+hello
+```
+##### 案例二
+```py
+for letter in "python":
+    if letter == "o":
+        continue
+    print("letter is:", letter)
+```
+结果
+```py
+letter is: p
+letter is: y
+letter is: t
+letter is: h
+letter is: n
+```
+
+#### break
+结束/终止循环
+##### 案例一
+```py
+for i in range(3):
+    print("-----")
+    print(" i= ",i)
+    if i == 1:
+        break
+    print("hello")
+```
+结果
+```py
+-----
+ i=  0
+hello
+-----
+ i=  1
+```
+##### 案例二
+```py
+names = ["Tom", "Bob", "Bela", "Anne","Alice"]
+for name in names:
+    if name == "Bela":
+        print("Bela byebye")
+        break
+    print("name is:",name)
+else:
+    print("no name")
+print("Done")
+```
+结果
+```py
+name is: Tom
+name is: Bob
+Bela byebye
+Done
+```
+##### 案例三
+```py
+for letter in "python":
+    if  letter == "o":
+        break
+    print("The letter is:", letter)
+```
+结果
+```py
+The letter is: p
+The letter is: r
+The letter is: t
+The letter is: h
+```
+##### 案例四
+```py
+n = 5
+while n > 0:
+    print("number is:", n)
+    n -= 1
+    if n == 2:
+        break
+print("byebye")
+```
+结果
+```py
+number is: 5
+number is: 4
+number is: 3
+byebye
+```
+
+#### 嵌套与可变循环
+循环嵌套不要太多，尽量控制在两层以内
+##### 嵌套循环
+```py
+# 嵌套循环
+n = 5
+for n in range(5,7):
+    for i in range(1,4):
+        print(i,"x",n,"=",i*n)
+    print("----------")
+```
+结果
+```py
+1 x 5 = 5
+2 x 5 = 10
+3 x 5 = 15
+----------
+1 x 6 = 6
+2 x 6 = 12
+3 x 6 = 18
+----------
+```
+##### 可变嵌套循环
+```py
+# 打印星号（*）的个数，由用户输入
+stars = int(input("星星个数："))
+for i in range(stars):
+    print("*",end="")   #end = ""  下一个print直接打印，不换行
+```
+结果
+```py
+星星个数：5
+*****
+```
+##### 双重嵌套
+```py
+# 打印星号（*）的个数行数，由用户输入
+lines = int(input("想要多少行："))
+stars = int(input("星星个数："))
+for line in range(lines):
+    for star in range(stars):
+        print("*",end="")
+    print()
+```
+结果
+```py
+想要多少行：2
+星星个数：3
+***
+***
+```
+##### 三重嵌套
+```py
+# 打印星号（*）的个数行数块数，由用户输入
+blocks = int(input("想要几块："))
+lines = int(input("想要多少行："))
+stars = int(input("星星个数："))
+for block in range(blocks):
+    for line in range(lines):
+        for star in range(stars):
+            print("*",end="")
+        print()
+    print("--------")
+```
+结果
+```py
+想要几块：2
+想要多少行：3
+星星个数：4
+****
+****
+****
+--------
+****
+****
+****
+--------
+```
 #### 
 ```py
 
@@ -472,7 +840,6 @@ else:
 ```py
 
 ```
-
 #### 
 ```py
 
@@ -489,47 +856,6 @@ else:
 ```py
 
 ```
-#### 
-```py
-
-```
-结果
-```py
-
-```
-#### 
-```py
-
-```
-结果
-```py
-
-```
-#### 
-```py
-
-```
-结果
-```py
-
-```
-#### 
-```py
-
-```
-结果
-```py
-
-```
-#### 
-```py
-
-```
-结果
-```py
-
-```
-
 
 
 
