@@ -122,5 +122,6 @@ enum class 强类型枚举，在标准C++中，枚举类型不是类型安全的
 该类中有40个左右的函数，我们从main中切入，发现只使用了默认初始化函数和train函数，逐个击破他们。
 
 初始化```Fasttext fasttext```，看到这里，突然有个疑问，这里为什么不使用new，平时我们为什么在使用new？
+> 插一句话，突然发现github上的超链接跳转不正常，原因是本地大写的文件改成小写之后上了git自动忽略掉了，git默认对于文件名大小写是不敏感的，设置git config core.ignorecase false
 
 ![](fastText/cbo_vs_skipgram.png)
