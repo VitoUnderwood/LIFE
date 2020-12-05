@@ -16,4 +16,104 @@
 
 这样做，还有有助于加深对git的理解和使用，例如查看git的提交历史,什么命令不知道？使用git log --help 查看详细的使用方式，英文的困难只能自己解决，这点东西看不了的话直接可以劝退的了。这个是能查到最详细的的使用方式，比你百度的全多了。
 
-使用```git log --reverse```第一条就是初次调教的代码，在github的release页面找到第一个版本对应的
+使用```git log --reverse```第一条就是初次调教的代码，在github的release页面找到第一个版本对应的commit id
+![](fastText/github_release.png)
+![](fastText/checkout.png)
+
+这里出现了新的名词 ```detached HEAD``` ，当直接指向一个游离的commit id，HEAD指向的应该是当前操作的分支，但是直接使用的commit id并非一个具体的分支，切回master之后git branch也看不到刚刚做的更改，
+解决方式，给个具体的分支名称，然后merge push就行了。
+
+```bash
+$ git checkout -b test-branch 56a4e5c08
+
+...do your thing...
+
+$ git checkout master
+$ git branch -d test-branch
+```
+
+写着写着就飘了，明明是看源码来着，准备工作差不多了，开始看fastText的hello world了
+
+## v0.1.0
+
+作者贴心的给出了tutorail，由监督学习的和无监督学习的两部分组成
+
+git clone下来之后切换到对应到分支，参照说明，直接make之后获得可执行文件。桥豆麻袋，先跑偏一下，make这一块，最近在使用clion的时候一直遇到cmake的东西，但是傻瓜式的编译运行我并没太注意cmake有什么用，下面介绍一下make和cmake之间有什么关系
+
+写程序大体步骤为：
+
+1. 用编辑器编写源代码，如.c文件
+2. 用编译器编译代码生成目标文件，如.o
+3. 用链接器连接目标代码生成可执行文件，如.exe
+
+但如果源文件太多，一个一个编译时就会特别麻烦，于是人们想到，为什么不设计一种类似批处理的程序，来批处理编译源文件呢，于是就有了make工具，它是一个自动化编译工具，你可以使用一条命令实现完全编译。但是你需要编写一个规则文件，make依据它来批处理编译，这个文件就是makefile，所以编写makefile文件也是一个程序员所必备的技能。
+
+对于一个大工程，编写makefile实在是件复杂的事，要记住各种命令可不容易，大点的工程源文件数量也不少，其中的依赖关系理不清，于是人们又想，为什么不设计一个工具，读入所有源文件之后，自动生成makefile呢，于是就出现了cmake工具，它能够输出各种各样的makefile或者project文件,从而帮助程序员减轻负担。但是随之而来也就是编写cmakelist文件，它是cmake所依据的规则。所以在编程的世界里没有捷径可走，还是要脚踏实地的。
+
+```bash
+makefile基本格式，注意命令之前必须是制表符，不接受4个空格，clion中自己调整
+# 否则报错*** missing separator.  Stop.
+目标：依赖
+    命令（依赖）-> 目标
+main: main.o sum.o
+    g++ main.o sum.o -o main
+main.o: main.cpp
+    g++ -c main.cpp
+sum.o: sum.cpp
+    g++ -c sum.cpp
+#make 只编译和上次被修改过的文件，
+```
+
+所以流程如下：
+![](fastText/make_cmake.png)
+
+回归正题，编译之后得到一个fastText二进制文件，直接运行可以看到
+
+```c
+>> ./fasttext
+usage: fasttext <command> <args>
+
+The commands supported by fasttext are:
+
+supervised     train a supervised classifier
+test           evaluate a supervised classifier
+predict        predict most likely labels
+predict-prob   predict most likely labels with probabilities
+skipgram       train a skipgram model
+cbow           train a cbow model
+print-vectors  print vectors given a trained model
+```
+
+python实现这种功能很简单，安装调用argparse就行，但是c++的第一遇到，那么不妨冲这里下手，看看怎么写出漂亮命令行文档，顺带了解一下fasttext初期的设计的理念，有哪些具体的功能，好像本末倒置了啊。
+
+### 命令行帮助文档的生成
+
+观察makefile，可以看到存在一个src/arg.cc的原文件，属于fasttext的依赖，八成是它控制的。结合main.cc和arg.cc调用者和被调用者对应的头文件来分析一下逻辑。顺便跟着造轮子，建立makefile，src，readme
+
+首先遇到了一条神奇的语句```std::vector<std::string> args(argv, argv + argc);```，其实这是vector的一种初始化方式，argv+argc初看也很懵，但是一定见过vector<int> v(a.begin(),a.end())这种初始化方式，argv是数组名，调用的时候自动转化为指针，argc是int，表示参数的数量，指针和int相加相当于指针后移，和上面的初始化并没有什么区别，这条语句就是把将命令行参数初始化成了vector。
+
+当使用使用容器初始化的时候，```vector<int> v{1,2,3,4,5,6,7,8,9};```，每次make都会遇到 error: expected ';' at end of declaration，百度就是个垃圾，查了半个小时，语法都背下来了也没找到错误，最后还是google到了答案，g++ 默认使用的是 C++03，容器是C++11的语法，make里面立一个flag **-std=c++11** 就行了，真是盖了帽了，我的老百度。
+
+### Args类
+
+fasttext是深度学习的库，必然和训练模型有关，训练是最重要的功能，所以开始解刨训练的代码
+
+```c
+void train(const std::vector<std::string> args) {
+  std::shared_ptr<Args> a = std::make_shared<Args>();
+  a->parseArgs(args);
+  FastText fasttext;
+  fasttext.train(a);
+}
+```
+
+看到```std::shared_ptr<Args> a = std::make_shared<Args>();```一定是满头包，这是什么？在c++中使用new出来的对象是不会自动释放占用的内存的，需要配合delete来使用，但是在逻辑复杂的项目中很难在正确的位置配对使用，导致内存泄漏，无法申请该内存，或者指针非法使用。shared_ptr是智能指针模版，方便资源的管理，自动释放没有指针引用的资源。std::shared_ptr的大小是原始指针的两倍，因为它的内部有一个原始指针指向资源，同时有个指针指向引用计数。使用引用计数来标识是否有多余指针指向该资源。make_shared起到new的作用可以一次将需要内存分配好。
+
+Args类是遇到的第一个类，从args.h可以一窥究竟。首先是正常的头文件宏定义，避免重复引用，多次声明，然后是定义了一个namespace，分隔了全局命名空间，避免命名冲突，namespace可以进行多次的定义，相当于向同一个命名空间添加成员。
+
+enum class 强类型枚举，在标准C++中，枚举类型不是类型安全的。枚举类型被视为整数，这使得两种不同的枚举类型之间可以进行比较。enum class此种枚举为类型安全的。枚举类型不能隐式地转换为整数；也无法与整数数值做比较。否则会发生编译错误。
+
+伴随着头文件的丰富，我们需要不断的更新makefile，体积越来越庞大，.o也越来越绕，所以直接使用一个变量来存放所有的main的依赖目标文件。
+
+
+![](fastText/cbo_vs_skipgram.png)

@@ -1,2 +1,3 @@
 # life
-## 热烈欢迎郭晓雅同学的加入
+
+## [fasttext源码解读](fastText/fasttext.md)
