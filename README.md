@@ -1,3 +1,3 @@
 # life
 
-## [fasttext源码解读](fastText/fasttext.md)
+## [fasttext源码解读](fasttext/fasttext.md)
