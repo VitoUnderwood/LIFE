@@ -123,5 +123,6 @@ enum class 强类型枚举，在标准C++中，枚举类型不是类型安全的
 
 初始化```Fasttext fasttext```，看到这里，突然有个疑问，这里为什么不使用new，平时我们为什么在使用new？
 > 插一句话，突然发现github上的超链接跳转不正常，原因是本地大写的文件改成小写之后上了git自动忽略掉了，git默认对于文件名大小写是不敏感的，设置git config core.ignorecase false，注意此时github上会同时出现这两个文件夹，但是你pull只能拿到改过之后的，无法删除github上的那个，这时候千万不要着急，只需要把这个文件夹拿出仓库，push一下，远程端两个都会消失，然后再放回仓库里面，在push一下，完美解决问题。
+> git remote prune origin 处理远程已经没有的分支，本地还能看到的分支，可以在github上手动删除分支
 
 ![](fastText/cbo_vs_skipgram.png)
