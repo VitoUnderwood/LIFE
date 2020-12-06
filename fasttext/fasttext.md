@@ -124,5 +124,57 @@ enum class 强类型枚举，在标准C++中，枚举类型不是类型安全的
 初始化```Fasttext fasttext```，看到这里，突然有个疑问，这里为什么不使用new，平时我们为什么在使用new？
 > 插一句话，突然发现github上的超链接跳转不正常，原因是本地大写的文件改成小写之后上了git自动忽略掉了，git默认对于文件名大小写是不敏感的，设置git config core.ignorecase false，注意此时github上会同时出现这两个文件夹，但是你pull只能拿到改过之后的，无法删除github上的那个，这时候千万不要着急，只需要把这个文件夹拿出仓库，push一下，远程端两个都会消失，然后再放回仓库里面，在push一下，完美解决问题。
 > git remote prune origin 处理远程已经没有的分支，本地还能看到的分支，可以在github上手动删除分支
+new实际上做了三件事：在堆上一块内存空间、调用构造函数、返回正确的指针。因此new出的对象可以在函数中直接返回，不会因为堆的释放而消失，但是也带来了相应的问题，使用完成之后必须删除，否则会出现内存泄漏的问题，所以多使用智能指针来保证安全。
+
+至此发现初始化还依赖其他定义的比较基础的类，没有他们是无法进行的，因此，先观察一下基础类的实现方式，学习类的常用写法。
+
+1. vector.h
+c++11中自带容器vector，使用的时候需要先```#include <vector>```，自己写一个是否会发生冲突呢？答案是不会的，头文件搜索规则：**尖括号**告诉编译器在一个或者多个标准系统目录中找到文件 /usr/include /usr/local/include；即系统头文件所在的目录，如果没有，也不会检索当前文件所在路径，并将报错。**双引号**编译器先到当前目录查找头文件或文件名中指定的其他目录，如果没找到在到标准系统目录查找。usr是系统自带的，usr/local是用户自己的，mac没有/usr/include，通常安装三方的时候在/usr/local/include中。
+接下来进入正题，编写Vector类。
+
+```c
+#include <cstdint>
+#include <ostream>
+
+#include "real.h"
+
+namespace fasttext {
+
+class Matrix;
+class QMatrix;
+
+class Vector {
+
+  public:
+    int64_t m_;
+    real* data_;
+
+    explicit Vector(int64_t);
+    ~Vector();
+
+    real& operator[](int64_t);
+    const real& operator[](int64_t) const;
+
+    int64_t size() const;
+    void zero();
+    void mul(real);
+    real norm() const;
+    void addVector(const Vector& source);
+    void addVector(const Vector&, real);
+    void addRow(const Matrix&, int64_t);
+    void addRow(const QMatrix&, int64_t);
+    void addRow(const Matrix&, int64_t, real);
+    void mul(const QMatrix&, const Vector&);
+    void mul(const Matrix&, const Vector&);
+    int64_t argmax();
+};
+
+std::ostream& operator<<(std::ostream&, const Vector&);
+
+}
+```
+
+class Matrix;是类声明，在c++prime的类类型中有提到，
+1. 
 
 ![](fastText/cbo_vs_skipgram.png)
