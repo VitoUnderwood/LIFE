@@ -17,8 +17,8 @@
 这样做，还有有助于加深对git的理解和使用，例如查看git的提交历史,什么命令不知道？使用git log --help 查看详细的使用方式，英文的困难只能自己解决，这点东西看不了的话直接可以劝退的了。这个是能查到最详细的的使用方式，比你百度的全多了。
 
 使用```git log --reverse```第一条就是初次调教的代码，在github的release页面找到第一个版本对应的commit id
-![](fastText/github_release.png)
-![](fastText/checkout.png)
+![](github_release.png)
+![](checkout.png)
 
 这里出现了新的名词 ```detached HEAD``` ，当直接指向一个游离的commit id，HEAD指向的应该是当前操作的分支，但是直接使用的commit id并非一个具体的分支，切回master之后git branch也看不到刚刚做的更改，
 解决方式，给个具体的分支名称，然后merge push就行了。
@@ -65,7 +65,7 @@ sum.o: sum.cpp
 ```
 
 所以流程如下：
-![](fastText/make_cmake.png)
+![](make_cmake.png)
 
 回归正题，编译之后得到一个fastText二进制文件，直接运行可以看到
 
@@ -180,6 +180,6 @@ explicit 修饰构造函数时，可以防止隐式转换和复制初始化
 real等同于float，typedef float real;
 int64_t,int32_t,可以理解为typedef的缩写，表示它是通过typedef定义的，而不是一种新的数据类型。因为跨平台，不同的平台会有不同的字长，所以利用预编译和typedef可以最有效的维护代码。这样做位数是明确的，没有歧义。
 析构函数：销毁非static函数成员，无返回值，也不接受参数。因此也不能进行重载，具有唯一性。
+重载：和定义函数一样，返回值，参数，必须和类类型相关，无法改变运算符的优先级
 
-
-![](fastText/cbo_vs_skipgram.png)
+![](cbo_vs_skipgram.png)
